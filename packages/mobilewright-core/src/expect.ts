@@ -112,7 +112,7 @@ class LocatorAssertions {
       },
       opts?.timeout ?? DEFAULT_TIMEOUT,
       () => this.negated
-        ? `Expected element NOT to be empty, but it was`
+        ? 'Expected element NOT to be empty, but it was'
         : `Expected element to be empty, but got "${lastValue}"`,
     );
   }
@@ -256,7 +256,7 @@ class ValueAssertions<T> {
   }
 
   toBeDefined(): void {
-    this.assert(this.actual !== undefined, `Expected defined, but received undefined`);
+    this.assert(this.actual !== undefined, 'Expected defined, but received undefined');
   }
 
   toBeGreaterThanOrEqual(expected: number): void {
@@ -316,7 +316,7 @@ class ValueAssertions<T> {
       error = e;
     }
     if (expected === undefined) {
-      this.assert(threw, `Expected function to throw`);
+      this.assert(threw, 'Expected function to throw');
     } else {
       const message = threw && error instanceof Error ? error.message : String(error);
       const matches = typeof expected === 'string' ? message.includes(expected) : expected.test(message);
