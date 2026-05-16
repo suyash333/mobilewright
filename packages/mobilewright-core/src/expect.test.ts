@@ -526,7 +526,7 @@ test.describe('expect', () => {
     });
 
     test('toBe uses Object.is semantics', () => {
-      expect(() => mwExpect(NaN).toBe(NaN)).not.toThrow();
+      expect(() => mwExpect(Number.NaN).toBe(Number.NaN)).not.toThrow();
       expect(() => mwExpect(0).toBe(-0)).toThrow(ExpectError);
     });
 
@@ -585,7 +585,7 @@ test.describe('expect', () => {
 
     test('toMatch passes with regex', () => {
       mwExpect('hello world').toMatch(/world/);
-      mwExpect('abc123').toMatch('\\d+');
+      mwExpect('abc123').toMatch(String.raw`\d+`);
     });
 
     test('toMatch fails when no match', () => {
@@ -621,7 +621,7 @@ test.describe('expect', () => {
     });
 
     test('toBeNaN passes with NaN', () => {
-      mwExpect(NaN).toBeNaN();
+      mwExpect(Number.NaN).toBeNaN();
     });
 
     test('toBeNaN fails with number', () => {
