@@ -2,6 +2,8 @@
 * Fix(ios): call `getForegroundApp()` before `launchApp()` in mobilecli driver to ensure DeviceKit is running first, preventing a race where its startup minimizes the newly-launched app ([#89](https://github.com/mobile-next/mobilewright/issues/89))
 * Fix(android): using instruments to get view tree, solves bug when constant UI change would fail "uiautomator dump" (fix is in mobilecli 0.3.74)
 * General: skip redundant `mobilecli devices` shell-outs in `connect()` and `installApp()` when device type is already known, reducing test startup time by ~4s
+* General: break early if installApps points to non-zip containers, before allocating devices
+* General: added plenty of verbose logs when `DEBUG=mw:*`
 
 ## [0.0.37] (2026-05-16)
 * Feat: add installApps to per-project overrides ([#133](https://github.com/mobile-next/mobilewright/pull/133))
