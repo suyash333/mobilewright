@@ -7,6 +7,7 @@ import type {
   Orientation,
   RecordingOptions,
   RecordingResult,
+  ScreenSize,
   Session,
 } from '@mobilewright/protocol';
 import { Screen } from './screen.js';
@@ -83,6 +84,11 @@ export class Device {
 
   async setOrientation(orientation: Orientation): Promise<void> {
     return this.driver.setOrientation(orientation);
+  }
+
+  /** Screen dimensions and pixel density: { width, height, scale }. */
+  async screenSize(): Promise<ScreenSize> {
+    return this.driver.getScreenSize();
   }
 
   async openUrl(url: string): Promise<void> {
