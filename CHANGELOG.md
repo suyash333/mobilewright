@@ -1,3 +1,8 @@
+## [0.0.44] (2026-06-12)
+* Feat: add `activity` to `LaunchOptions` ([#182](https://github.com/mobile-next/mobilewright/pull/182))
+* Feat(driver-mobilenext): upload test report by default unless `uploadReport` is off ([#188](https://github.com/mobile-next/mobilewright/pull/188))
+* Feat(driver-mobilenext): log periodic progress during app upload to S3 ([#187](https://github.com/mobile-next/mobilewright/pull/187))
+
 ## [0.0.43] (2026-06-12)
 * Feat: add `device.screenSize()` returning width, height, scale ([#179](https://github.com/mobile-next/mobilewright/pull/179))
 * Feat: expose `doubleTap()`, `longPress()`, `gesture()` on Screen ([#178](https://github.com/mobile-next/mobilewright/pull/178))
