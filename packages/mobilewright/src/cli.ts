@@ -331,6 +331,20 @@ program
     process.on('SIGTERM', () => { void shutdown(); });
   });
 
+// ── mcp ────────────────────────────────────────────────────────────────
+program
+  .command('mcp')
+  .description('start an MCP server (stdio) exposing connected devices to AI agents')
+  .action(async () => {
+    const { runMcpServer } = await import('@mobilewright/agent');
+    const { ios, android } = await import('./launchers.js');
+
+    telemetry('mw_mcp');
+    // stdio transport owns stdout — diagnostics must go to stderr.
+    await runMcpServer({ ios, android });
+    console.error('Mobilewright MCP server running on stdio');
+  });
+
 // ── init ───────────────────────────────────────────────────────────────
 program
   .command('init')

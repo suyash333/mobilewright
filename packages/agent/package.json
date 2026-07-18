@@ -1,0 +1,39 @@
+{
+  "name": "@mobilewright/agent",
+  "version": "0.0.1",
+  "description": "AI agent integration for Mobilewright — accessibility snapshots, structured actions, and an MCP server",
+  "homepage": "https://mobilewright.dev",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "prepublishOnly": "tsc -b",
+    "test": "playwright test --config=../../tests/mobilewright.config.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mobile-next/mobilewright.git",
+    "directory": "packages/agent"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@mobilewright/core": "^0.0.1",
+    "@mobilewright/protocol": "^0.0.1",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "sharp": "^0.34.5",
+    "zod": "^3.25.76"
+  }
+}

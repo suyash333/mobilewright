@@ -31,6 +31,7 @@ const sidebars = {
       label: 'Guides',
       collapsed: false,
       items: [
+        'guides/ai-agents',
         'guides/assertions',
         'guides/auto-waiting',
         'guides/deep-links',

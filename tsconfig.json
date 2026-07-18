@@ -22,6 +22,7 @@
   "references": [
     { "path": "packages/protocol" },
     { "path": "packages/mobilewright-core" },
+    { "path": "packages/agent" },
     { "path": "packages/driver-mobilecli" },
     { "path": "packages/driver-mobilenext" },
     { "path": "packages/inspector" },

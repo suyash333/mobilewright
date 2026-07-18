@@ -28,7 +28,7 @@ If you've used Playwright, you already know Mobilewright.
 
 Your agent needs a phone, not a screenshot.
 
-Mobilewright exposes the device's accessibility tree — deterministic, token-efficient, no vision model needed. Use it with [mobile-mcp](https://github.com/mobile-next/mobile-mcp), Claude, Cursor, or any coding agent.
+Mobilewright exposes the device's accessibility tree — deterministic, token-efficient, no vision model needed. Use it with the built-in MCP server, [mobile-mcp](https://github.com/mobile-next/mobile-mcp), Claude, Cursor, or any coding agent.
 
 ```typescript
 // An AI agent can control a real phone with readable, semantic actions
@@ -38,6 +38,54 @@ await expect(screen.getByText('Welcome')).toBeVisible();
 ```
 
 No XPath. No coordinates. No vision model. The agent reads the accessibility tree and acts on it directly.
+
+### MCP server
+
+Start the built-in MCP server and any MCP client (Claude Code, Claude Desktop, Cursor, …) can drive your devices:
+
+```bash
+npx mobilewright mcp
+```
+
+```json
+{
+  "mcpServers": {
+    "mobilewright": { "command": "npx", "args": ["mobilewright", "mcp"] }
+  }
+}
+```
+
+The agent gets tools like `mobile_list_devices`, `mobile_use_device`, `mobile_snapshot`, `mobile_tap`, `mobile_fill`, `mobile_swipe`, `mobile_launch_app`, and `mobile_screenshot`. `mobile_snapshot` returns a compact text view of the screen where every element carries a ref:
+
+```
+- textfield "Email" [ref=e2] [focused]: "user@example.com"
+- textfield "Password" [ref=e3]
+- button "Sign In" [ref=e4] [testId=signin-btn]
+- text "Forgot password?" [ref=e5]
+```
+
+The agent acts by ref (`mobile_tap` with `ref: "e4"`), and every action returns a fresh snapshot — a tight observe-act loop with no vision model in it. Refs are re-resolved against the live hierarchy on each action, so a re-render or scroll between snapshot and tap doesn't break the run.
+
+### Agent SDK — `@mobilewright/agent`
+
+Building your own LLM loop instead of using MCP? The same layer is available programmatically:
+
+```typescript
+import { ios } from 'mobilewright';
+import { AgentSession, executeAction } from '@mobilewright/agent';
+
+const device = await ios.launch({ bundleId: 'com.example.app' });
+const session = new AgentSession(device);
+
+const snapshot = await session.snapshot();      // { text, refs } — feed text to your model
+const result = await executeAction(session, {   // raw model output goes straight in
+  action: 'tap',
+  ref: 'e4',
+});
+console.log(result.message, result.snapshot);   // validated, executed, fresh snapshot back
+```
+
+`executeAction` accepts unknown JSON, validates it with zod, and returns `{ ok, message, snapshot }` instead of throwing — malformed or stale actions come back as guidance your agent can react to.
 
 ## Features
 
@@ -95,6 +143,7 @@ It checks Xcode, Android SDK, simulators, ADB, and other dependencies — and te
 | `@mobilewright/driver-mobilecli` | WebSocket JSON-RPC client for mobilecli |
 | `@mobilewright/driver-mobilenext` | WebSocket JSON-RPC client for [Mobile Next Cloud](https://mobilenext.ai) cloud devices |
 | `@mobilewright/core` | `Device`, `Screen`, `Locator`, `expect` — the user-facing API |
+| `@mobilewright/agent` | AI agent integration — accessibility snapshots with refs, structured actions, MCP server |
 
 Most users only need `mobilewright` (or `@mobilewright/test` for Playwright Test integration).
 
@@ -496,6 +545,14 @@ The Inspector opens automatically in your browser. Select a device from the pick
 Locator priority matches what mobilewright uses: `getByTestId` > `getByRole` > `getByLabel` > `getByText`.
 
 ![Mobilewright Inspector](docs/src/images/inspector.png)
+
+### `mobilewright mcp`
+
+Start the Mobilewright MCP server on stdio, exposing connected devices to AI agents and MCP clients. See [Built for AI agents](#built-for-ai-agents).
+
+```bash
+npx mobilewright mcp
+```
 
 ### `mobilewright screenshot`
 
