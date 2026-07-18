@@ -8,7 +8,7 @@ Framework for mobile device automation, inspired by Playwright's architecture an
 
 **Mobilewright** targets iOS and Android devices, simulators, and emulators through a clean, auto-waiting API built on top of [mobilecli](https://github.com/mobile-next/mobilecli).
 
-[Get Started](#quick-start) · [API Docs](#api-reference) · [Roadmap](ROADMAP.md) · [Mobile Next Cloud](https://mobilenext.ai)
+[Get Started](#quick-start) · [Tutorial](TUTORIAL.md) · [API Docs](#api-reference) · [Roadmap](ROADMAP.md) · [Mobile Next Cloud](https://mobilenext.ai)
 
 ## Why Mobilewright?
 
@@ -99,6 +99,8 @@ console.log(result.message, result.snapshot);   // validated, executed, fresh sn
 - **Test fixtures** — `@mobilewright/test` extends Playwright Test with `screen` and `device` fixtures
 
 ## Quick Start
+
+New to Mobilewright? The [step-by-step tutorial](TUTORIAL.md) takes you from install to a passing test, then on to driving your app with an AI agent.
 
 ```bash
 npm install mobilewright
