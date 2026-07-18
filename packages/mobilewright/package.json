@@ -34,6 +34,7 @@
     "templates"
   ],
   "dependencies": {
+    "@mobilewright/agent": "^0.0.1",
     "@mobilewright/core": "^0.0.1",
     "@mobilewright/driver-mobilecli": "^0.0.1",
     "@mobilewright/driver-mobilenext": "^0.0.1",

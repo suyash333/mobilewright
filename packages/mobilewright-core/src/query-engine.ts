@@ -194,6 +194,28 @@ const ROLE_TYPE_MAP: Record<string, string[]> = {
   header: ['navigationbar', 'toolbar', 'header'],
 };
 
+/**
+ * Derive the semantic role of a node from its platform type, or null when no
+ * mapping applies. The catch-all types ('other', bare 'reactviewgroup') are
+ * excluded so generic containers don't all read as listitems/buttons.
+ */
+export function roleOf(node: ViewNode): string | null {
+  const normalizedType = node.type.toLowerCase();
+  if (normalizedType === 'other') {
+    return null;
+  }
+  if (normalizedType === 'reactviewgroup') {
+    const clickable = node.raw?.['clickable'] === 'true' || node.raw?.['accessible'] === 'true';
+    return clickable ? 'button' : null;
+  }
+  for (const [role, types] of Object.entries(ROLE_TYPE_MAP)) {
+    if (types.includes(normalizedType)) {
+      return role;
+    }
+  }
+  return null;
+}
+
 function matchesRole(node: ViewNode, role: string): boolean {
   const normalizedType = node.type.toLowerCase();
   const roleTypes = ROLE_TYPE_MAP[role.toLowerCase()];

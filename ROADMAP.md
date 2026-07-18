@@ -19,7 +19,8 @@ This is a living document of planned and in-progress features. Items are roughly
 | ✅ Device control | `setOrientation()`, `openUrl()`, `listApps()`, `getForegroundApp()` |
 | ✅ Video recording | Attached to the HTML report (`on`, `on failure`, `off`) |
 | ✅ Multi-project config | `projects: [{ name: 'iPhone', use: { platform: 'ios' } }, ...]` |
-| ✅ CLI | `test`, `show-report`, `init`, `devices`, `doctor`, `screenshot` |
+| ✅ CLI | `test`, `show-report`, `init`, `devices`, `doctor`, `screenshot`, `mcp` |
+| ✅ AI agent integration | `mobilewright mcp` MCP server; `@mobilewright/agent` snapshots with element refs + structured actions |
 
 ## What's coming
 
@@ -30,7 +31,6 @@ This is a living document of planned and in-progress features. Items are roughly
 | **Crashes** | Retrieve all crashes (or crashes specific to one app) from device | In Progress | 
 | **Filesystem** | Access filesystem on device, or within app container | Planned |
 | **Mobilewright CLI** | Command-line tool for managing fleets of real devices — provisioning, grouping, and running tests across many devices in parallel. | Planned |
-| **Mobilewright MCP** | MCP server exposing Mobilewright capabilities to AI agents and coding assistants. | Planned |
 | **Device Logs** | Programmatic access to device system logs (iOS `os_log`, Android `logcat`). Filter, capture, and assert on log output from within your test. | Planned |
 | **Codegen** | Record interactions on a real device or simulator and automatically generate Mobilewright TypeScript test code. Similar to `playwright codegen`. | Planned |
 | **Tracing** | Step-by-step execution traces with per-action logs, screenshots, and timing attached to a visual timeline. Open with `mobilewright show-trace`. | Planned |
